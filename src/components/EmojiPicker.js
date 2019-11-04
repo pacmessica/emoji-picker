@@ -17,7 +17,7 @@ class EmojiPicker extends Component {
           rowHeight={30}
           rowRenderer={({ key, index, isScrolling, isVisible, style }) => {
             return (
-              <div className="row" key={key}>
+              <div className="row" key={key} style={style}>
                 {this.state.rows[index].type === "category" &&
                   this.state.rows[index].value}
                 {this.state.rows[index].type === "emoji" &&
