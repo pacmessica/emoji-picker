@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import List from "react-virtualized/dist/commonjs/List";
+import { setEmoji } from "../redux/actions";
 import { connect } from "react-redux";
 
 class EmojiPicker extends Component {
@@ -22,7 +23,14 @@ class EmojiPicker extends Component {
                   this.state.rows[index].value}
                 {this.state.rows[index].type === "emoji" &&
                   this.state.rows[index].value.map(emoji => {
-                    return <span className="emoji">{emoji}</span>;
+                    return (
+                      <span
+                        className="emoji"
+                        onClick={() => this.props.setEmoji(emoji)}
+                      >
+                        {emoji}
+                      </span>
+                    );
                   })}
               </div>
             );
@@ -33,4 +41,7 @@ class EmojiPicker extends Component {
   }
 }
 
-export default connect()(EmojiPicker);
+export default connect(
+  null,
+  { setEmoji }
+)(EmojiPicker);
