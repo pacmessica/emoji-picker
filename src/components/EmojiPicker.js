@@ -1,12 +1,36 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import List from "react-virtualized/dist/commonjs/List";
+import { connect } from "react-redux";
 
 class EmojiPicker extends Component {
-    render() {
-        return (
-            <div>TODO</div>
-        )
-    }
+  state = {
+    rows: this.props.rows
+  };
+
+  render() {
+    return (
+      <div>
+        <List
+          width={220}
+          height={220}
+          rowCount={this.state.rows.length}
+          rowHeight={30}
+          rowRenderer={({ key, index, isScrolling, isVisible, style }) => {
+            return (
+              <div className="row" key={key}>
+                {this.state.rows[index].type === "category" &&
+                  this.state.rows[index].value}
+                {this.state.rows[index].type === "emoji" &&
+                  this.state.rows[index].value.map(emoji => {
+                    return <span className="emoji">{emoji}</span>;
+                  })}
+              </div>
+            );
+          }}
+        />
+      </div>
+    );
+  }
 }
 
 export default connect()(EmojiPicker);
