@@ -12,6 +12,29 @@ class EmojiButton extends Component {
   };
 
   componentDidMount() {
+    this.initiatePickerRows();
+    document.addEventListener("click", this.handleClickEvent);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClickEvent);
+  }
+
+  handleClickEvent = e => {
+    let targetElem = e.target;
+    const popperElem = document.getElementById("popper");
+    const btnElem = document.getElementById("btn");
+
+    if (
+      this.state.popperIsOpen &&
+      targetElem !== popperElem &&
+      targetElem !== btnElem
+    ) {
+      this.setState({ popperIsOpen: false });
+    }
+  };
+
+  initiatePickerRows() {
     let pickerRows = [];
     Object.keys(emojis).forEach(function(key) {
       pickerRows.push({ value: key, type: "category" });
@@ -40,7 +63,7 @@ class EmojiButton extends Component {
         <Reference>
           {({ ref }) => (
             <div className="emoji-button" ref={ref}>
-              <button type="button" onClick={this.togglePopper}>
+              <button id="btn" type="button" onClick={this.togglePopper}>
                 CLICK ME
               </button>
             </div>
@@ -49,7 +72,12 @@ class EmojiButton extends Component {
         {this.state.popperIsOpen && (
           <Popper placement={this.state.placement}>
             {({ ref, style, placement, arrowProps }) => (
-              <div ref={ref} style={style} data-placement={placement}>
+              <div
+                id="popper"
+                ref={ref}
+                style={style}
+                data-placement={placement}
+              >
                 <EmojiPicker
                   rows={this.state.pickerRows}
                   onSelectEmoji={this.togglePopper}
