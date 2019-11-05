@@ -27,7 +27,7 @@ class EmojiButton extends Component {
 
     if (
       this.state.popperIsOpen &&
-      targetElem !== popperElem &&
+      !popperElem.contains(targetElem) &&
       targetElem !== btnElem
     ) {
       this.setState({ popperIsOpen: false });
