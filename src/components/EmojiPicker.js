@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import List from "react-virtualized/dist/commonjs/List";
 import { setEmoji } from "../redux/actions";
 import { connect } from "react-redux";
-import { PickerContainer, Arrow } from "./styles";
+import { BottomBar, PickerContainer, Arrow } from "./styles";
+import { categories } from "./emojis.js";
 
 class EmojiPicker extends Component {
   state = {
@@ -20,7 +21,7 @@ class EmojiPicker extends Component {
         <Arrow />
         <List
           className="list"
-          width={280}
+          width={300}
           height={220}
           rowCount={this.state.rows.length}
           rowHeight={30}
@@ -44,6 +45,11 @@ class EmojiPicker extends Component {
             );
           }}
         />
+        <BottomBar>
+          {Object.keys(categories).map(key => {
+            return <div className="menu-category">{categories[key]}</div>;
+          })}
+        </BottomBar>
       </PickerContainer>
     );
   }
