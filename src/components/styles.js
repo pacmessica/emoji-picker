@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const PickerContainer = styled("div")`
   margin-top: 12px;
-  width: 300px;
+  width: 300px; /* 8 emojis/row * 35px/emoji + 2*10px for list padding */
   height: 260px; /* list is 220px  + bottombar is 40px */
   box-shadow: 0 0px 6px rgba(32, 33, 36, 0.28);
   background-color: #eeeeee;
