@@ -7,15 +7,34 @@ import { categories } from "./emojis.js";
 
 class EmojiPicker extends Component {
   state = {
-    rows: this.props.rows
+    categoryRowIndexes: {},
+    scrollTop: 0
   };
 
-  handleOnClick = emoji => {
+  componentDidMount() {
+    var categoryRowIndexes = {};
+    this.props.rows.forEach((row, index) => {
+      if (row.type === "category") {
+        categoryRowIndexes[row.value] = index;
+      }
+    });
+
+    this.setState({ categoryRowIndexes });
+  }
+
+  handleOnSelectEmoji = emoji => {
     this.props.setEmoji(emoji);
     this.props.onSelectEmoji();
   };
 
+  handleOnSelectCategory = category => {
+    this.setState({
+      scrollTop: this.state.categoryRowIndexes[category] * 30 + 12 // rowIndex * rowHeight + top padding
+    });
+  };
+
   render() {
+    const { rows } = this.props;
     return (
       <PickerContainer>
         <Arrow />
@@ -23,19 +42,21 @@ class EmojiPicker extends Component {
           className="list"
           width={300}
           height={220}
-          rowCount={this.state.rows.length}
+          rowCount={rows.length}
           rowHeight={30}
+          scrollTop={this.state.scrollTop}
           rowRenderer={({ key, index, isScrolling, isVisible, style }) => {
             return (
               <div className="row" key={key} style={style}>
-                {this.state.rows[index].type === "category" &&
-                  this.state.rows[index].value.toUpperCase()}
-                {this.state.rows[index].type === "emoji" &&
-                  this.state.rows[index].value.map(emoji => {
+                {rows[index].type === "category" &&
+                  rows[index].value.toUpperCase()}
+                {rows[index].type === "emoji" &&
+                  rows[index].value.map((emoji, colIndex) => {
                     return (
                       <div
+                        key={`${index}-${colIndex}`}
                         className="emoji"
-                        onClick={() => this.handleOnClick(emoji)}
+                        onClick={() => this.handleOnSelectEmoji(emoji)}
                       >
                         {emoji}
                       </div>
@@ -46,8 +67,16 @@ class EmojiPicker extends Component {
           }}
         />
         <BottomBar>
-          {Object.keys(categories).map(key => {
-            return <div className="menu-category">{categories[key]}</div>;
+          {Object.keys(categories).map(catName => {
+            return (
+              <div
+                key={catName}
+                className="menu-category"
+                onClick={() => this.handleOnSelectCategory(catName)}
+              >
+                {categories[catName]}
+              </div>
+            );
           })}
         </BottomBar>
       </PickerContainer>
