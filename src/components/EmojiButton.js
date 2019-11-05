@@ -40,7 +40,7 @@ class EmojiButton extends Component {
         <Reference>
           {({ ref }) => (
             <div className="emoji-button" ref={ref}>
-              <button type="button" onClick={() => this.togglePopper()}>
+              <button type="button" onClick={this.togglePopper}>
                 CLICK ME
               </button>
             </div>
@@ -50,7 +50,10 @@ class EmojiButton extends Component {
           <Popper placement={this.state.placement}>
             {({ ref, style, placement, arrowProps }) => (
               <div ref={ref} style={style} data-placement={placement}>
-                <EmojiPicker rows={this.state.pickerRows} />
+                <EmojiPicker
+                  rows={this.state.pickerRows}
+                  onSelectEmoji={this.togglePopper}
+                />
               </div>
             )}
           </Popper>

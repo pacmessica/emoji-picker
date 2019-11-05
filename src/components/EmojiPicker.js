@@ -9,6 +9,11 @@ class EmojiPicker extends Component {
     rows: this.props.rows
   };
 
+  handleOnClick = emoji => {
+    this.props.setEmoji(emoji);
+    this.props.onSelectEmoji();
+  };
+
   render() {
     return (
       <PickerContainer>
@@ -29,7 +34,7 @@ class EmojiPicker extends Component {
                       return (
                         <div
                           className="emoji"
-                          onClick={() => this.props.setEmoji(emoji)}
+                          onClick={() => this.handleOnClick(emoji)}
                         >
                           {emoji}
                         </div>
