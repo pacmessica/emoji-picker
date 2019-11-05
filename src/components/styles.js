@@ -2,16 +2,13 @@ import styled from "styled-components";
 
 export const PickerContainer = styled("div")`
   margin-top: 12px;
-
-  .listContainer {
-    width: 280px;
-    height: 220px;
-    box-shadow: 0 0px 6px rgba(32, 33, 36, 0.28);
-    background-color: #eeeeee;
-    color: #797980;
-    border-radius: 10px;
-    padding: 10px;
-  }
+  width: 280px;
+  height: 220px; /* list is 220px  */
+  box-shadow: 0 0px 6px rgba(32, 33, 36, 0.28);
+  background-color: #eeeeee;
+  color: #797980;
+  border-radius: 10px;
+  padding: 10px;
 
   .row {
     text-align: left;
@@ -42,7 +39,9 @@ export const Arrow = styled("div")`
     pointer-events: none;
     border-color: rgba(238, 238, 238, 0);
     border-bottom-color: #eeeeee;
-    border-width: 12px;
-    margin-left: -12px;
+    border-width: 22px;
+    margin-left: -22px;
   }
+
+  /* TODO add styles for arrow in other positions */
 `;
