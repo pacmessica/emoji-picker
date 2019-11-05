@@ -13,7 +13,8 @@
     "react-tether": "^2.0.3",
     "react-virtualized": "^9.21.1",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
